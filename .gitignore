@@ -1,0 +1,26 @@
+# Ignore WordPress core
+wp-admin/
+wp-includes/
+*.php
+*.txt
+*.html
+!index.php
+
+# Ignore environment & databases
+wp-config.php
+*.sql
+*.sqlite
+
+# Ignore uploads and standard dependencies
+wp-content/uploads/
+node_modules/
+
+# Ignore vendor/default themes and plugins, track only your custom code
+wp-content/*
+!wp-content/themes/
+wp-content/themes/*
+!wp-content/themes/loom-laser-theme/
+
+!wp-content/plugins/
+wp-content/plugins/*
+!wp-content/plugins/loom-laser-configurator/
