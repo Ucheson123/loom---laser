@@ -152,3 +152,17 @@ function llc_add_engraving_fee( $cart_obj ) {
         }
     }
 }
+
+/**
+ * 6. Save Custom Data to the Final Order
+ * Transfers the engraving text from the temporary cart session to the permanent database order.
+ */
+add_action( 'woocommerce_checkout_create_order_line_item', 'llc_save_engraving_to_order_items', 10, 4 );
+
+function llc_save_engraving_to_order_items( $item, $cart_item_key, $values, $order ) {
+    // Check if our custom engraving data exists in the cart item
+    if ( isset( $values['llc_engraving'] ) ) {
+        // Save it permanently as line-item meta data
+        $item->add_meta_data( 'Custom Engraving', $values['llc_engraving'], true );
+    }
+}
