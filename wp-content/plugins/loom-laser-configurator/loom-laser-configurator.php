@@ -42,3 +42,59 @@ function llc_custom_engraving_field() {
     
     echo '</div>';
 }
+
+/**
+ * 2. Live Pricing JavaScript
+ * PRD Requirement: Live price recalculation as options change
+ */
+add_action( 'wp_footer', 'llc_live_pricing_script' );
+
+function llc_live_pricing_script() {
+    // Only load this script on individual product pages
+    if ( ! is_product() ) {
+        return;
+    }
+    ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        let basePrice = 0;
+        const engravingFee = 15.00;
+        const displayArea = $('#llc_live_price_display');
+        const textInput = $('#llc_engraving_text');
+        
+        // 1. Listen for WooCommerce variation selection (Color picked)
+        $('form.variations_form').on('found_variation', function(event, variation) {
+            basePrice = variation.display_price; // Get the exact price of the chosen color
+            updateLivePrice();
+        });
+
+        // 2. Listen for variation reset (Color cleared)
+        $('form.variations_form').on('hide_variation', function() {
+            basePrice = 0;
+            displayArea.text('Select options above');
+        });
+
+        // 3. Listen for user typing in the custom text field
+        textInput.on('input', function() {
+            updateLivePrice();
+        });
+
+        // 4. Calculate and render the final price
+        function updateLivePrice() {
+            if (basePrice === 0) return; // Prevent calculation if no color is picked
+
+            let finalPrice = basePrice;
+            let hasEngravingText = textInput.val().trim().length > 0;
+
+            // Add the $15 fee if they have typed anything
+            if (hasEngravingText) {
+                finalPrice += engravingFee;
+            }
+
+            // Update the UI with the properly formatted price
+            displayArea.text('$' + finalPrice.toFixed(2));
+        }
+    });
+    </script>
+    <?php
+}
