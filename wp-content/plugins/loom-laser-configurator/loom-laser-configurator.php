@@ -98,3 +98,57 @@ function llc_live_pricing_script() {
     </script>
     <?php
 }
+
+/**
+ * 3. Save Custom Data to Cart Session
+ * Captures the POST data when 'Add to Cart' is clicked.
+ */
+add_filter( 'woocommerce_add_cart_item_data', 'llc_add_engraving_to_cart', 10, 2 );
+
+function llc_add_engraving_to_cart( $cart_item_data, $product_id ) {
+    if ( isset( $_POST['llc_engraving_text'] ) && ! empty( sanitize_text_field( $_POST['llc_engraving_text'] ) ) ) {
+        $cart_item_data['llc_engraving'] = sanitize_text_field( $_POST['llc_engraving_text'] );
+    }
+    return $cart_item_data;
+}
+
+/**
+ * 4. Display Custom Data in the Cart and Checkout tables
+ * Shows "Custom Engraving: [User Text]" under the product name.
+ */
+add_filter( 'woocommerce_get_item_data', 'llc_display_engraving_in_cart', 10, 2 );
+
+function llc_display_engraving_in_cart( $item_data, $cart_item ) {
+    if ( array_key_exists( 'llc_engraving', $cart_item ) ) {
+        $item_data[] = array(
+            'key'   => 'Custom Engraving',
+            'value' => $cart_item['llc_engraving']
+        );
+    }
+    return $item_data;
+}
+
+/**
+ * 5. Update the Actual Cart Price
+ * Adds the $15 fee to the WooCommerce cart object if engraving exists.
+ */
+add_action( 'woocommerce_before_calculate_totals', 'llc_add_engraving_fee', 10, 1 );
+
+function llc_add_engraving_fee( $cart_obj ) {
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
+        return;
+    }
+    
+    foreach ( $cart_obj->get_cart() as $cart_item_key => $cart_item ) {
+        if ( isset( $cart_item['llc_engraving'] ) ) {
+            // Get the base price of the chosen variation (e.g., $45 or $50)
+            $base_price = $cart_item['data']->get_regular_price(); 
+            
+            // Add the $15 engraving fee
+            $new_price = $base_price + 15.00;
+            
+            // Set the new calculated price in the cart
+            $cart_item['data']->set_price( $new_price );
+        }
+    }
+}
