@@ -1,60 +1,134 @@
-/* Loom & Laser Custom Configurator UI */
+/*
+Theme Name: Loom & Laser Theme
+Theme URI: https://github.com/
+Description: Custom storefront theme for Loom & Laser Co product configurator.
+Author: Loom & Laser Co
+Version: 1.0.0
+Template: twentytwentyfive
+*/
+
+/* =========================================
+   1. Global Layout & Spacing
+   ========================================= */
+.wp-site-blocks, .site-content, #content, main, .woocommerce {
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    padding: 60px 24px !important;
+}
+
+body { background-color: #fafafa !important; }
+
+/* =========================================
+   2. Premium Typography Overrides
+   ========================================= */
+body, h1, h2, h3, h4, h5, h6, p, span, div, a, label {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+.product_title {
+    font-size: 2.2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
+    color: #0f172a !important;
+    margin-bottom: 10px !important;
+}
+
+p.price, span.price {
+    color: #475569 !important;
+    font-size: 1.4rem !important;
+    font-weight: 500 !important;
+}
+
+/* =========================================
+   3. Premium Button Styling (Removes Default Purple)
+   ========================================= */
+.woocommerce button.button.alt, 
+.woocommerce a.button, 
+.woocommerce button.button {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 16px 28px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    border: none !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    width: 100% !important; /* Full width for impact */
+    margin-top: 10px !important;
+}
+
+.woocommerce button.button.alt:hover {
+    background-color: #334155 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* =========================================
+   4. Loom & Laser Custom Configurator UI
+   ========================================= */
 .llc-configurator-wrapper {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 24px;
-    margin: 20px 0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 28px !important;
+    margin: 25px 0 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025) !important;
 }
 
 .llc-configurator-wrapper h4 {
-    margin-top: 0;
-    font-size: 1.25rem;
-    color: #1a202c;
-    border-bottom: 2px solid #edf2f7;
-    padding-bottom: 12px;
+    margin-top: 0 !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    padding-bottom: 16px !important;
+    margin-bottom: 20px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
 }
 
 .llc-engraving-group label {
-    font-weight: 600;
-    color: #4a5568;
+    font-weight: 600 !important;
+    color: #475569 !important;
+    font-size: 0.95rem !important;
 }
 
 #llc_engraving_text {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #cbd5e0;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.2s ease;
+    width: 100% !important;
+    padding: 14px 16px !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    color: #0f172a !important;
+    transition: all 0.2s ease !important;
+    box-sizing: border-box !important;
+    margin-top: 8px !important;
+    background-color: #f8fafc !important;
 }
 
 #llc_engraving_text:focus {
-    outline: none;
-    border-color: #2b6cb0;
-    box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.1);
+    outline: none !important;
+    border-color: #0f172a !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.1) !important;
 }
 
 .llc-live-price-wrapper {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px dashed #cbd5e0;
-    font-size: 1.35rem;
-    color: #2d3748;
+    margin-top: 24px !important;
+    padding-top: 18px !important;
+    border-top: 1px dashed #cbd5e1 !important;
+    font-size: 1.1rem !important;
+    color: #64748b !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
 }
 
 #llc_live_price_display {
-    color: #2b6cb0;
-    font-weight: 800;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .llc-configurator-wrapper {
-        padding: 16px;
-    }
-    .llc-live-price-wrapper {
-        font-size: 1.2rem;
-    }
+    color: #0f172a !important;
+    font-weight: 800 !important;
+    font-size: 1.5rem !important;
 }
